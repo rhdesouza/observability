@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: monitoring-demo
+
+api:
+  security:
+    user: admin
+    password: admin
+
+management:
+  endpoints:
+    web:
+      #base-path: /actuator
+      exposure:
+        include: [ "health", "metrics","prometheus"]
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+server:
+  port: 8080
+
+spring-doc:
+  swagger-ui:
+    path: /swagger-ui.html
+
