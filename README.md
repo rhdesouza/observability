@@ -8,7 +8,7 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 💻️ Spring
 💻️ Prometheus
-💻️ Grafana
+💻️ Grafana (para métricas)
 💻️ K6
 💻️ Docker
 
