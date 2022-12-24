@@ -8,6 +8,17 @@ services:
   #  ports:
   #    - "8080:8080"
 
+  mysql:
+    container_name: mysql_observability
+    image: mysql:latest
+    networks:
+      - grafana_network
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: "observability"
+    ports:
+      - 3306:3306
+
   prometheus:
     image: prom/prometheus:v2.38.0
     networks:

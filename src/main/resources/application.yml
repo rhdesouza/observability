@@ -1,11 +1,24 @@
 spring:
   application:
     name: monitoring-demo
+  datasource:
+    diver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:${datasource.url:mysql://localhost/observability?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=America/Sao_Paulo}
+    username: root
+    password: root
+    sqlScriptEncoding: UTF-8
 
 api:
   security:
     user: admin
     password: admin
+
+flyway:
+  url: jdbc:${datasource.url:mysql://localhost/observability?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=America/Sao_Paulo}
+  schemas: observability
+  user: root
+  password: root
+  createSchemas: true
 
 management:
   endpoints:
