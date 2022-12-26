@@ -33,6 +33,8 @@ Git
 
 [Dashboard de métricas com Spring Boot Actuator, Prometheus e Grafana](https://www.youtube.com/watch?v=K_EI1SxVQ5Q)
 
+[Ferramentas de Observabilidade](https://github.com/liliannss/observabilidade)
+
 ----------------------------------
 ### Comandos:
 

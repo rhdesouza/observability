@@ -1,6 +1,6 @@
 spring:
   application:
-    name: monitoring-demo
+    name: observability
   datasource:
     diver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:${datasource.url:mysql://localhost/observability?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=America/Sao_Paulo}
