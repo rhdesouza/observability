@@ -6,26 +6,31 @@ Este projeto visa estudar a observabilidade de uma aplicação rest.
 ## 👨‍💻️ Tecnogias utilizadas
 O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
-💻️ Spring
+💻️ Spring 3.0.1
+
+    Api (JDK: 17)
+
 💻️ Prometheus
-💻️ Grafana (para métricas)
+
+    Monitoramento e alertas
+
+💻️ Grafana
+
+    Análise e Monitoramento
+
+💻️ Loki 
+
+    Agregação de Registros (logs)
+
 💻️ K6
+    
+    Teste de performance
+
 💻️ Docker
 
-## :inbox_tray: Dependências externas do projeto
-Back-end: https://github.com/rhdesouza/RightShotClub-FrontEnd
+---------------------------------
 
-## :closed_book: Maiores informações ténicas sobre o projeto
-
-Spring Boot 3.0.0-SNAPSHOT
-MAVEN -> Gerenciador de Dependências
-JDK: 17
-Software: IntelliJ
-Lombok
-Git 
-
-
-## Referências:
+## Referências de estudo:
 
 [How To Monitor a Spring Boot App With Prometheus and Grafana](https://betterprogramming.pub/how-to-monitor-a-spring-boot-app-with-prometheus-and-grafana-22e2338f97fc)
 
@@ -39,3 +44,38 @@ Git
 ### Comandos:
 
 <b>Gerar container spring:<b> ``docker build -t springio/gs-spring-boot-docker .``
+
+----------------------------------
+
+# Sobre a cofiguração:
+
+### Spring
+Logs: Os logs da aplicação são exportados para a pasta scripts/monitoring/logs;
+
+Docker: Foi configurado o arquivo Dockerfile para conteinerização do Spring;
+ 
+### Prometheus
+
+Ferramenta da monitoramento e alertas.
+
+Arquivo de configuração: scripts/monitoring/prometheus/prometheus.yaml
+
+<strong>Configuração Docker:</strong> 
+
+    prometheus:
+        image: prom/prometheus:v2.38.0
+        networks:
+            - grafana_network
+        container_name: prometheus-container
+        volumes:
+            - ./prometheus/:/etc/prometheus/
+        command:
+            - '--config.file=/etc/prometheus/prometheus.yaml'
+        ports:
+            - "9090:9090"
+        restart: always
+
+
+
+
+ 

@@ -15,5 +15,4 @@ scrape_configs:
           - localhost
         labels:
           job: varlogs
-          # 这个跟挂载的位置有点关系，你可以猜猜
           __path__: /var/log/*log
