@@ -1,15 +1,17 @@
 version: '3.7'
 
 services:
-  #spring:
-  #  image: springio/gs-spring-boot-docker
-  #  container_name: api-obervability
-  #  networks:
-  #    - grafana_network
-  #  ports:
-  #    - "8080:8080"
-  #  volumes:
-  #    - ./logs:/log
+  spring:
+    image: springio/gs-spring-boot-docker
+    container_name: api-obervability
+    networks:
+      - grafana_network
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/log
+    depends_on:
+      - mysql
 
   mysql:
     container_name: mysql_observability
@@ -43,6 +45,7 @@ services:
     container_name: grafana-container
     depends_on:
       - prometheus
+      - loki
     ports:
       - "3000:3000"
     volumes:
