@@ -9,7 +9,9 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./logs:/log
+      - ./logs:/logs
+    environment:
+      - datasource.url=mysql://mysql/observability?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=America/Sao_Paulo
     depends_on:
       - mysql
 

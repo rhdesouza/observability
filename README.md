@@ -43,7 +43,11 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 ----------------------------------
 ### Comandos:
 
-<b>Gerar container spring:<b> ``docker build -t springio/gs-spring-boot-docker .``
+<b>Gerar container spring:<b> 
+
+1 - ``mvn install -DskipTests ``
+
+2 - ``docker build -t springio/gs-spring-boot-docker .``
 
 ----------------------------------
 
