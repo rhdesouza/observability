@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="5885ff2d-92b0-423a-a2e2-7c4a42db8274" name="observability" url="jdbc:mysql://localhost/observability?useSSL=false&amp;allowMultiQueries=true&amp;serverTimezone=UTC" driverClass="com.mysql.cj.jdbc.Driver" />
+    </data-sources>
+  </component>
+</project>

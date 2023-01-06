@@ -1,5 +1,6 @@
 package com.example.observability.infrastructure.persistence.entity;
 
+import com.example.observability.domain.entities.Categoria;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -16,5 +17,9 @@ public class CategoriaEntity {
     @Column(name="categoria")
     @NotNull(message = "Campo categoria é obrigatório")
     private String categoria;
+
+    public Categoria toDomain(){
+        return new Categoria(this.id, this.categoria);
+    }
 
 }
