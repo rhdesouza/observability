@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS veiculo (
   categoria_id int NOT NULL,
   montadora_id int NOT NULL,
   modelo VARCHAR(45) NOT NULL,
-  ano_abricacao int NOT NULL,
+  ano_fabricacao int NOT NULL,
   ano_modelo int NOT NULL,
   valor_fipe DECIMAL(19,2) NOT NULL,
   status_veiculo VARCHAR(15) NOT NULL,

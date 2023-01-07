@@ -13,4 +13,5 @@ public interface ClienteService {
 
     Optional<Cliente> disableCliente(Long idCliente);
 
+    Cliente save(Cliente cliente);
 }

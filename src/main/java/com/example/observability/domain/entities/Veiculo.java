@@ -2,11 +2,13 @@ package com.example.observability.domain.entities;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
+@Builder
 public class Veiculo {
 
     private Integer id;

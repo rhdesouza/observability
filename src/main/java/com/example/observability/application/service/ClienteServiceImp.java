@@ -4,8 +4,11 @@ import com.example.observability.domain.entities.Cliente;
 import com.example.observability.domain.entities.StatusCliente;
 import com.example.observability.domain.interfaces.ClienteService;
 import com.example.observability.infrastructure.persistence.entity.ClienteEntity;
+import com.example.observability.infrastructure.persistence.entity.StatusVeiculo;
 import com.example.observability.infrastructure.persistence.repository.ClienteRepository;
+import com.example.observability.webapi.exception.BusinessException;
 import com.example.observability.webapi.exception.NotFoundException;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +33,7 @@ public class ClienteServiceImp implements ClienteService {
             return Optional.of(clienteEntity.get().toDomain());
         } else {
             logger.info("Method: findByIdCliente | retunr not found");
-            return null;
+            throw new NotFoundException("Method: findByIdCliente | retunr not found");
         }
     }
 
@@ -56,12 +59,28 @@ public class ClienteServiceImp implements ClienteService {
         return null;
     }
 
-    private Cliente desativaCliente(Cliente cliente) {
+    private Cliente desativaCliente(@NotNull Cliente cliente) {
         if (cliente.getStatusCliente() == StatusCliente.Inativo) {
             throw new NotFoundException("Method: disableCliente | client already disabled");
         } else {
             cliente.setStatusCliente(StatusCliente.Inativo);
             return clienteRepository.save(new ClienteEntity(cliente)).toDomain();
+        }
+    }
+    @Override
+    public Cliente save(@NotNull Cliente cliente){
+        if (cliente.getStatusCliente() == StatusCliente.Inativo && cliente.getId() == null){
+            logger.info(String.format("Method: save | %s cannot be saved, inactive status", cliente.getNome()));
+            throw new BusinessException("Cliente não pode ser cadastrado com o status Inativo");
+        }
+
+        try{
+            ClienteEntity clienteEntity = clienteRepository.save(new ClienteEntity(cliente));
+            logger.info(String.format("Method: save | %s saved successfully", cliente.getNome()));
+            return clienteEntity.toDomain();
+        }catch (Exception ex){
+            logger.error(String.format("Method: save | %s error saved ", cliente.getNome()));
+            throw ex;
         }
     }
 }

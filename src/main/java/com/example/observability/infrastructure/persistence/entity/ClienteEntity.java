@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class ClienteEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "nome")

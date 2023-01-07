@@ -15,10 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -94,6 +91,24 @@ public class ClienteController {
                         new ClienteRepresentation(result.get()), HttpStatus.OK)
                 )
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @Operation(summary = "Salva Cliente.", description = "Inclui / Edita cliente ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Retorna o cliente salvo.",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = ClienteRepresentation.class))}),
+            @ApiResponse(responseCode = "401", description = "Não autorizado;", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Cliente não localizado.", content = @Content)
+    })
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClienteRepresentation> save(
+            @RequestBody final ClienteRepresentation clienteRepresentation
+    ) {
+        logger.info("ClienteController::save");
+        Cliente cliente = clienteService.save(clienteRepresentation.toDomain());
+
+        return ResponseEntity.ok(new ClienteRepresentation(cliente));
     }
 
 }
