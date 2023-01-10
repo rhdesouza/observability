@@ -1,8 +1,9 @@
 spring:
   application:
-    name: observability
+    name: observability-api
   datasource:
-    diver-class-name: com.mysql.cj.jdbc.Driver
+    #diver-class-name: com.mysql.cj.jdbc.Driver
+    diver-class-name: io.opentracing.contrib.jdbc.TracingDriver
     url: jdbc:${datasource.url:mysql://localhost/observability?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=America/Sao_Paulo}
     username: root
     password: root
@@ -25,6 +26,9 @@ flyway:
   createSchemas: true
 
 management:
+  tracing:
+    sampling:
+      probability: 1.0
   endpoints:
     web:
       #base-path: /actuator
@@ -43,4 +47,3 @@ server:
 spring-doc:
   swagger-ui:
     path: /swagger-ui.html
-

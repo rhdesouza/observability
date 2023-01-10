@@ -11,7 +11,7 @@ public interface ClienteService {
 
     List<Cliente> getAllClientes();
 
-    Optional<Cliente> disableCliente(Long idCliente);
+    Cliente disableCliente(Long idCliente);
 
     Cliente save(Cliente cliente);
 }

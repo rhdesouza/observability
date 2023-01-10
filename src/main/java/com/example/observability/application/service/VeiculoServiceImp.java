@@ -23,11 +23,12 @@ public class VeiculoServiceImp implements VeiculoService {
     @Autowired
     VeiculoRepository veiculoRepository;
 
+
     @Override
     public Optional<Veiculo> findByIdVeiculo(Long idVeiculo) {
         Optional<VeiculoEntity> veiculoEntity = veiculoRepository.findById(idVeiculo);
         if (veiculoEntity.isPresent()) {
-            logger.info(String.format("Method: findByIdVeiculo | retunr %s", veiculoEntity.get()));
+            logger.info("Method: findByIdVeiculo | retunr {}", veiculoEntity.get());
             return Optional.of(veiculoEntity.get().toDomain());
         } else {
             logger.info("Method: findByIdVeiculo | retunr not found");
@@ -41,7 +42,7 @@ public class VeiculoServiceImp implements VeiculoService {
         List<Veiculo> veiculos = veiculoEntities.stream()
                 .map(montadoraEntity -> montadoraEntity.toDomain()
                 ).toList();
-        logger.info(String.format("Method: getAllVeiculo | find to %s veiculos", veiculos.size()));
+        logger.info("Method: getAllVeiculo | find to {} veiculos", veiculos.size());
         return veiculos;
     }
 

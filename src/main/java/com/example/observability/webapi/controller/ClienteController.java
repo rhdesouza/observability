@@ -68,7 +68,7 @@ public class ClienteController {
         }
 
         return ResponseEntity.ok(
-                clientes.stream().map(cliente -> new ClienteRepresentation(cliente)).toList()
+                clientes.stream().map(ClienteRepresentation::new).toList()
         );
     }
 
@@ -86,11 +86,8 @@ public class ClienteController {
             @PathVariable(name = "idCliente") Long idCliente
     ) {
         logger.info("ClienteController::disableCliente");
-        return Optional.ofNullable(clienteService.disableCliente(idCliente))
-                .map(result -> new ResponseEntity<ClienteRepresentation>(
-                        new ClienteRepresentation(result.get()), HttpStatus.OK)
-                )
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Cliente cliente = clienteService.disableCliente(idCliente);
+        return ResponseEntity.ok(new ClienteRepresentation(cliente));
     }
 
     @Operation(summary = "Salva Cliente.", description = "Inclui / Edita cliente ")

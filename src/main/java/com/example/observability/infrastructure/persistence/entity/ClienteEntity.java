@@ -2,7 +2,6 @@ package com.example.observability.infrastructure.persistence.entity;
 
 import com.example.observability.domain.entities.Cliente;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

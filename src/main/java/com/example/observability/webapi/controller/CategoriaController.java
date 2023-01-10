@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/categoria")
@@ -33,7 +32,7 @@ public class CategoriaController {
     private CategoriaServiceImp categoriaServiceImp;
 
 
-    @Operation(summary = "Retorna uma categoria.",description = "Retorna uma categoria por id")
+    @Operation(summary = "Retorna uma categoria.", description = "Retorna uma categoria por id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Retorna a categoria pesquisada.",
                     content = {@Content(mediaType = "application/json",
@@ -47,14 +46,11 @@ public class CategoriaController {
             @PathVariable(name = "idCategoria") Long idCategoria
     ) {
         logger.info("CategoriaController::getCategoria");
-        return Optional.ofNullable(categoriaServiceImp.findByIdCategoria(idCategoria))
-                .map(result -> new ResponseEntity<CategoriaRepresentation>(
-                        new CategoriaRepresentation(result.get()), HttpStatus.OK)
-                )
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Categoria categoria = categoriaServiceImp.findByIdCategoria(idCategoria);
+        return ResponseEntity.ok(new CategoriaRepresentation(categoria));
     }
 
-    @Operation(summary = "Retorna uma lista de categorias.",description = "Retorna uma lista de categorias")
+    @Operation(summary = "Retorna uma lista de categorias.", description = "Retorna uma lista de categorias")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Retorna a lista de categorias.",
                     content = {@Content(mediaType = "application/json",
@@ -72,7 +68,7 @@ public class CategoriaController {
         }
 
         return ResponseEntity.ok(
-                categorias.stream().map(categoria -> new CategoriaRepresentation(categoria)).toList()
+                categorias.stream().map(CategoriaRepresentation::new).toList()
         );
     }
 }

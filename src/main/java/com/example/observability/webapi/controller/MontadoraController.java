@@ -1,10 +1,7 @@
 package com.example.observability.webapi.controller;
 
-import com.example.observability.application.service.CategoriaServiceImp;
 import com.example.observability.application.service.MontadoraServiceImp;
-import com.example.observability.domain.entities.Categoria;
 import com.example.observability.domain.entities.Montadora;
-import com.example.observability.webapi.representation.CategoriaRepresentation;
 import com.example.observability.webapi.representation.MontadoraRepresentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -75,7 +72,7 @@ public class MontadoraController {
         }
 
         return ResponseEntity.ok(
-                montadoras.stream().map(montadora -> new MontadoraRepresentation(montadora)).toList()
+                montadoras.stream().map(MontadoraRepresentation::new).toList()
         );
     }
 }

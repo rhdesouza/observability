@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface LocacaoService {
 
-    Optional<Locacao> findByIdLocacao(Long idLocacao);
+    Locacao findByIdLocacao(Long idLocacao);
 
     List<Locacao> getAllLocacao();
 

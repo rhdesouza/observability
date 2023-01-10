@@ -2,7 +2,6 @@ package com.example.observability.webapi.representation;
 
 import com.example.observability.domain.entities.Cliente;
 import com.example.observability.domain.entities.Locacao;
-import com.example.observability.domain.entities.StatusCliente;
 import com.example.observability.domain.entities.Veiculo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

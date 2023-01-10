@@ -82,5 +82,13 @@ services:
     networks:
       - observability_network
 
+  zipkin:
+    image: openzipkin/zipkin
+    container_name: zipkin-service
+    ports:
+      - 9411:9411
+    networks:
+      - observability_network
+
 networks:
   observability_network:

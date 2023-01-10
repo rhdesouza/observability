@@ -4,7 +4,6 @@ import com.example.observability.domain.entities.Cliente;
 import com.example.observability.domain.entities.StatusCliente;
 import com.example.observability.domain.interfaces.ClienteService;
 import com.example.observability.infrastructure.persistence.entity.ClienteEntity;
-import com.example.observability.infrastructure.persistence.entity.StatusVeiculo;
 import com.example.observability.infrastructure.persistence.repository.ClienteRepository;
 import com.example.observability.webapi.exception.BusinessException;
 import com.example.observability.webapi.exception.NotFoundException;
@@ -29,7 +28,7 @@ public class ClienteServiceImp implements ClienteService {
     public Optional<Cliente> findByIdCliente(Long idCliente) {
         Optional<ClienteEntity> clienteEntity = clienteRepository.findById(idCliente);
         if (clienteEntity.isPresent()) {
-            logger.info(String.format("Method: findByIdCliente | retunr %s", clienteEntity.get()));
+            logger.info("Method: findByIdCliente | retunr {}", clienteEntity.get());
             return Optional.of(clienteEntity.get().toDomain());
         } else {
             logger.info("Method: findByIdCliente | retunr not found");
@@ -41,22 +40,20 @@ public class ClienteServiceImp implements ClienteService {
     public List<Cliente> getAllClientes() {
         List<ClienteEntity> clienteEntities = clienteRepository.findAll();
 
-        List<Cliente> clientes = clienteEntities.stream().map(
-                cliente -> cliente.toDomain()
-        ).toList();
+        List<Cliente> clientes = clienteEntities.stream().map(ClienteEntity::toDomain).toList();
 
-        logger.info(String.format("Method: getAllClientes | find to %s clientes", clientes.size()));
+        logger.info("Method: getAllClientes | find to {} clientes", clientes.size());
         return clientes;
     }
 
     @Override
-    public Optional<Cliente> disableCliente(Long idCliente) {
+    public Cliente disableCliente(Long idCliente) {
         Optional<Cliente> cliente = findByIdCliente(idCliente);
         if (cliente.isPresent()) {
-            logger.info(String.format("Method: disableCliente | disable cliente %s", cliente.get().getNome()));
-            return Optional.of(desativaCliente(cliente.get()));
+            logger.info("Method: disableCliente | disable cliente {}", cliente.get().getNome());
+            return desativaCliente(cliente.get());
         }
-        return null;
+        throw new NotFoundException("Method: disableCliente | Cliente not found");
     }
 
     private Cliente desativaCliente(@NotNull Cliente cliente) {
@@ -70,13 +67,13 @@ public class ClienteServiceImp implements ClienteService {
     @Override
     public Cliente save(@NotNull Cliente cliente){
         if (cliente.getStatusCliente() == StatusCliente.Inativo && cliente.getId() == null){
-            logger.info(String.format("Method: save | %s cannot be saved, inactive status", cliente.getNome()));
+            logger.info("Method: save | {} cannot be saved, inactive status", cliente.getNome());
             throw new BusinessException("Cliente não pode ser cadastrado com o status Inativo");
         }
 
         try{
             ClienteEntity clienteEntity = clienteRepository.save(new ClienteEntity(cliente));
-            logger.info(String.format("Method: save | %s saved successfully", cliente.getNome()));
+            logger.info("Method: save | {} saved successfully", cliente.getNome());
             return clienteEntity.toDomain();
         }catch (Exception ex){
             logger.error(String.format("Method: save | %s error saved ", cliente.getNome()));

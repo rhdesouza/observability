@@ -2,7 +2,6 @@ package com.example.observability.webapi.controller;
 
 import com.example.observability.domain.entities.Veiculo;
 import com.example.observability.domain.interfaces.VeiculoService;
-import com.example.observability.webapi.representation.MontadoraRepresentation;
 import com.example.observability.webapi.representation.VeiculoRepresentation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,8 +32,7 @@ public class VeiculoController {
     @Autowired
     private VeiculoService veiculoService;
 
-
-    @Operation(summary = "Retorna um veiculo.",description = "Retorna um veiculo por id")
+    @Operation(summary = "Retorna um veiculo.", description = "Retorna um veiculo por id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Retorna o veiculo pesquisado.",
                     content = {@Content(mediaType = "application/json",
@@ -55,7 +53,7 @@ public class VeiculoController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @Operation(summary = "Retorna uma lista de veiculos.",description = "Retorna uma lista de veiculos")
+    @Operation(summary = "Retorna uma lista de veiculos.", description = "Retorna uma lista de veiculos")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Retorna a lista de veiculos.",
                     content = {@Content(mediaType = "application/json",
@@ -73,7 +71,7 @@ public class VeiculoController {
         }
 
         return ResponseEntity.ok(
-                veiculos.stream().map(veiculo -> new VeiculoRepresentation(veiculo)).toList()
+                veiculos.stream().map(VeiculoRepresentation::new).toList()
         );
     }
 }

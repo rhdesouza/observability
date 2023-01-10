@@ -11,5 +11,4 @@ public class ObservabilityApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ObservabilityApplication.class, args);
 	}
-
 }

@@ -1,9 +1,7 @@
 package com.example.observability.webapi.controller;
 
-import com.example.observability.domain.entities.Cliente;
 import com.example.observability.domain.entities.Locacao;
 import com.example.observability.domain.interfaces.LocacaoService;
-import com.example.observability.webapi.representation.ClienteRepresentation;
 import com.example.observability.webapi.representation.LocacaoRepresentationSimple;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -47,7 +45,7 @@ public class LocacaoController {
         logger.info("LocacaoController::getLocacao");
         return Optional.ofNullable(locacaoService.findByIdLocacao(idLocacao))
                 .map(result -> new ResponseEntity<LocacaoRepresentationSimple>(
-                        new LocacaoRepresentationSimple(result.get()), HttpStatus.OK)
+                        new LocacaoRepresentationSimple(result), HttpStatus.OK)
                 )
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
@@ -70,7 +68,7 @@ public class LocacaoController {
         }
 
         return ResponseEntity.ok(
-                locacoes.stream().map(locacao -> new LocacaoRepresentationSimple(locacao)).toList()
+                locacoes.stream().map(LocacaoRepresentationSimple::new).toList()
         );
     }
 
@@ -88,7 +86,7 @@ public class LocacaoController {
             @PathVariable(name = "idCliente") Long idCliente,
             @Parameter(description = "Id do veiculo")
             @PathVariable(name = "idVeiculo") Long idVeiculo
-            ) {
+    ) {
         logger.info("LocacaoController::setLocacao");
         return Optional.ofNullable(locacaoService.setLocacao(idCliente, idVeiculo))
                 .map(result -> new ResponseEntity<LocacaoRepresentationSimple>(
@@ -105,7 +103,7 @@ public class LocacaoController {
             @ApiResponse(responseCode = "401", description = "Não autorizado;", content = @Content),
             @ApiResponse(responseCode = "404", description = "Recurso não localizado.", content = @Content)
     })
-    @PostMapping(value="/devolution/{idLocacao}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/devolution/{idLocacao}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<LocacaoRepresentationSimple> setDevolucao(
             @Parameter(description = "Id da locação")
             @PathVariable(name = "idLocacao") Long idLocacao

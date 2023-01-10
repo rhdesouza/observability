@@ -11,6 +11,7 @@ import com.example.observability.infrastructure.persistence.entity.LocacaoEntity
 import com.example.observability.infrastructure.persistence.repository.ClienteRepository;
 import com.example.observability.infrastructure.persistence.repository.LocacaoRepository;
 import com.example.observability.webapi.exception.BusinessException;
+import com.example.observability.webapi.exception.NotFoundException;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,14 +39,13 @@ public class LocacaoServiceImp implements LocacaoService {
     private VeiculoService veiculoService;
 
     @Override
-    public Optional<Locacao> findByIdLocacao(Long idLocacao) {
+    public Locacao findByIdLocacao(Long idLocacao) {
         Optional<LocacaoEntity> locacaoEntity = locacaoRepository.findById(idLocacao);
         if (locacaoEntity.isPresent()) {
-            logger.info(String.format("Method: findByIdLocacao | retunr %s", locacaoEntity.get()));
-            return Optional.of(locacaoEntity.get().toDomain());
+            logger.info("Method: findByIdLocacao | retunr {}", locacaoEntity.get());
+            return locacaoEntity.get().toDomain();
         } else {
-            logger.info("Method: findByIdLocacao | retunr not found");
-            return null;
+            throw new NotFoundException("Method: findByIdLocacao | Cliente not found");
         }
     }
 
@@ -53,11 +53,9 @@ public class LocacaoServiceImp implements LocacaoService {
     public List<Locacao> getAllLocacao() {
         List<LocacaoEntity> locacaoEntities = locacaoRepository.findAll();
 
-        List<Locacao> locacoes = locacaoEntities.stream().map(
-                locacao -> locacao.toDomain()
-        ).toList();
+        List<Locacao> locacoes = locacaoEntities.stream().map(LocacaoEntity::toDomain).toList();
 
-        logger.info(String.format("Method: getAllLocacao | find to %s clientes", locacoes.size()));
+        logger.info("Method: getAllLocacao | find to {} clientes", locacoes.size());
         return locacoes;
     }
 
@@ -71,33 +69,33 @@ public class LocacaoServiceImp implements LocacaoService {
         try {
             LocacaoEntity locacaoEntity = locacaoRepository.save(new LocacaoEntity(locacao));
             veiculoService.setStatusVeiculo(veiculo, StatusVeiculo.Alugado);
-            logger.info(String.format("Method: getAllLocacao | Saved locacao %s", locacaoEntity));
+            logger.info("Method: getAllLocacao | Saved locacao {}", locacaoEntity);
             return locacaoEntity.toDomain();
         } catch (Exception ex) {
-            logger.error(String.format("Method: getAllLocacao | Error to save locacao"));
+            logger.error("Method: getAllLocacao | Error to save locacao");
             throw ex;
         }
     }
 
-    private void isVeiculoAlugado(@NotNull Veiculo veiculo){
-        if (veiculo.getStatus() == StatusVeiculo.Alugado){
-            logger.info(String.format("Method: isVeiculoAlugado | vehicle %s is already in place", veiculo));
+    private void isVeiculoAlugado(@NotNull Veiculo veiculo) {
+        if (veiculo.getStatus() == StatusVeiculo.Alugado) {
+            logger.info("Method: isVeiculoAlugado | vehicle {} is already in place", veiculo);
             throw new BusinessException("Veículo ja foi aluago, espera até a devolução");
         }
     }
 
     @Override
     public Locacao setDevolucao(Long idLocacao) {
-        Locacao locacao = findByIdLocacao(idLocacao).get();
+        Locacao locacao = findByIdLocacao(idLocacao);
         try {
             locacao.setDevolucao();
             veiculoService.setStatusVeiculo(locacao.getVeiculo(), StatusVeiculo.Disponivel);
             return locacaoRepository.save(new LocacaoEntity(locacao)).toDomain();
         } catch (Exception ex) {
-            logger.error(String.format("Method: setDevolucao | Error to save locacao devolucao"));
+            logger.error("Method: setDevolucao | Error to save locacao devolucao");
             throw ex;
         } finally {
-            logger.info(String.format("Method: setDevolucao | Saved locacao %s", locacao));
+            logger.info("Method: setDevolucao | Saved locacao {}", locacao);
         }
     }
 }

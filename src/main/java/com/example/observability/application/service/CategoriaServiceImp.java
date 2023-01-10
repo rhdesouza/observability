@@ -4,6 +4,7 @@ import com.example.observability.domain.entities.Categoria;
 import com.example.observability.domain.interfaces.CategoriaService;
 import com.example.observability.infrastructure.persistence.entity.CategoriaEntity;
 import com.example.observability.infrastructure.persistence.repository.CategoriaRepository;
+import com.example.observability.webapi.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,24 +21,21 @@ public class CategoriaServiceImp implements CategoriaService {
     CategoriaRepository categoriaRepository;
 
     @Override
-    public Optional<Categoria> findByIdCategoria(Long idCategoria) {
+    public Categoria findByIdCategoria(Long idCategoria) {
         Optional<CategoriaEntity> categoriaEntity = categoriaRepository.findById(idCategoria);
         if (categoriaEntity.isPresent()) {
-            logger.info(String.format("Method: findByIdCategoria | retunr %s", categoriaEntity.get()));
-            return Optional.of(categoriaEntity.get().toDomain());
-        } else {
-            logger.info("Method: findByIdCategoria | retunr not found");
-            return null;
+            logger.info("Method: findByIdCategoria | retunr {}", categoriaEntity.get());
+            return categoriaEntity.get().toDomain();
         }
+        throw new NotFoundException("Method: findByIdCategoria | retunr not found");
     }
 
     @Override
     public List<Categoria> findAllCategoria() {
         List<CategoriaEntity> categoriasEntities = categoriaRepository.findAll();
         List<Categoria> categorias = categoriasEntities.stream()
-                .map(categoriaEntity -> categoriaEntity.toDomain()
-                ).toList();
-        logger.info(String.format("Method: findAllCategoria | find to %s categories", categorias.size()));
+                .map(CategoriaEntity::toDomain).toList();
+        logger.info("Method: findAllCategoria | find to {} categories", categorias.size());
         return categorias;
     }
 }
