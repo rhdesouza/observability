@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cliente")
@@ -43,11 +42,8 @@ public class ClienteController {
             @PathVariable(name = "idCliente") Long idCliente
     ) {
         logger.info("ClienteController::getCliente");
-        return Optional.ofNullable(clienteService.findByIdCliente(idCliente))
-                .map(result -> new ResponseEntity<ClienteRepresentation>(
-                        new ClienteRepresentation(result.get()), HttpStatus.OK)
-                )
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        Cliente cliente = clienteService.findByIdCliente(idCliente).get();
+        return ResponseEntity.ok(new ClienteRepresentation(cliente));
     }
 
     @Operation(summary = "Retorna uma lista de clientes.", description = "Retorna uma lista de clientes")

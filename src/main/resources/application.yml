@@ -31,7 +31,7 @@ management:
       probability: 1.0
   endpoints:
     web:
-      #base-path: /actuator
+      base-path: /actuator
       exposure:
         include: [ "health", "metrics","prometheus" ]
   endpoint:
@@ -41,6 +41,13 @@ management:
       enabled: true
     prometheus:
       enabled: true
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+
 server:
   port: 8080
 

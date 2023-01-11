@@ -90,5 +90,17 @@ services:
     networks:
       - observability_network
 
+  k6:
+    image: loadimpact/k6:latest
+    container_name: k6-service
+    ports:
+      - "6565:6565"
+    environment:
+      - K6_OUT=influxdb=http://influxdb:8086/k6
+    volumes:
+      - ./scripts:/scripts
+    networks:
+      - observability_network
+
 networks:
   observability_network:

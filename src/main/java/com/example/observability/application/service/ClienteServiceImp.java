@@ -31,8 +31,7 @@ public class ClienteServiceImp implements ClienteService {
             logger.info("Method: findByIdCliente | retunr {}", clienteEntity.get());
             return Optional.of(clienteEntity.get().toDomain());
         } else {
-            logger.info("Method: findByIdCliente | retunr not found");
-            throw new NotFoundException("Method: findByIdCliente | retunr not found");
+            throw new NotFoundException("Method: findByIdCliente | retunr not found client id: " + idCliente);
         }
     }
 
@@ -64,18 +63,19 @@ public class ClienteServiceImp implements ClienteService {
             return clienteRepository.save(new ClienteEntity(cliente)).toDomain();
         }
     }
+
     @Override
-    public Cliente save(@NotNull Cliente cliente){
-        if (cliente.getStatusCliente() == StatusCliente.Inativo && cliente.getId() == null){
+    public Cliente save(@NotNull Cliente cliente) {
+        if (cliente.getStatusCliente() == StatusCliente.Inativo && cliente.getId() == null) {
             logger.info("Method: save | {} cannot be saved, inactive status", cliente.getNome());
             throw new BusinessException("Cliente não pode ser cadastrado com o status Inativo");
         }
 
-        try{
+        try {
             ClienteEntity clienteEntity = clienteRepository.save(new ClienteEntity(cliente));
             logger.info("Method: save | {} saved successfully", cliente.getNome());
             return clienteEntity.toDomain();
-        }catch (Exception ex){
+        } catch (Exception ex) {
             logger.error(String.format("Method: save | %s error saved ", cliente.getNome()));
             throw ex;
         }
