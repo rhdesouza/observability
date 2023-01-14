@@ -95,6 +95,19 @@
             <groupId>io.zipkin.reporter2</groupId>
             <artifactId>zipkin-reporter-brave</artifactId>
         </dependency>
+
+        <!-- easy-random -->
+        <dependency>
+            <groupId>org.jeasy</groupId>
+            <artifactId>easy-random-core</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
+        <!-- 2 para testes -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
