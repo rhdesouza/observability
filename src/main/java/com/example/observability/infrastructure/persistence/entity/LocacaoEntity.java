@@ -40,6 +40,7 @@ public class LocacaoEntity {
         this.veiculoEntity = new VeiculoEntity(locacaoDomain.getVeiculo());
         this.clienteEntity = new ClienteEntity(locacaoDomain.getCliente());
         this.dataLocacao = locacaoDomain.getDataLocacao();
+        this.dataDevolucao = locacaoDomain.getDataDevolucao();
         this.valor = locacaoDomain.getValor();
     }
 

@@ -56,7 +56,7 @@ public class VeiculoEntity {
     public Veiculo toDomain() {
         return Veiculo.builder()
                 .id(this.id)
-                .categoria(new Categoria(this.categoriaEntity.getId(), this.categoriaEntity.getCategoria()))
+                .categoria(new Categoria(this.categoriaEntity.getId(), this.categoriaEntity.getCategoria(), this.categoriaEntity.getValorDiariaMinima()))
                 .montadora(new Montadora(this.montadoraEntity.getId(), this.montadoraEntity.getMontadora()))
                 .modelo(this.modelo)
                 .anoFabricacao(this.anoFabricacao)

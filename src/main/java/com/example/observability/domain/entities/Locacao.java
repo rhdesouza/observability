@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.time.LocalDateTime;
 
 @Data
@@ -33,11 +34,17 @@ public class Locacao {
         this.valor = this.calculateLocation();
     }
 
-    //Todo: Implementar a regra correta sobre o valor da locação.
     @NotNull
     @Contract(value = " -> new", pure = true)
     private BigDecimal calculateLocation() {
-        return new BigDecimal("500.00");
-    }
+        int mesAno = 12;
+        int diasMes = 30;
+        int diffAnoVeiculo = Math.subtractExact(LocalDateTime.now().getYear(), this.veiculo.getAnoModelo());
+        BigDecimal valorAluguelDiario = this.veiculo.getValorFipe()
+                .divide(BigDecimal.valueOf(diffAnoVeiculo), MathContext.DECIMAL32)
+                .divide(new BigDecimal(mesAno), MathContext.DECIMAL32)
+                .divide(new BigDecimal(diasMes), MathContext.DECIMAL32);
 
+        return valorAluguelDiario.compareTo(this.veiculo.getCategoria().getValorDiariaMinima()) == 1 ?  valorAluguelDiario : this.veiculo.getCategoria().getValorDiariaMinima();
+    }
 }

@@ -26,7 +26,7 @@ export default () => {
   let idLocationRandom = randomIntBetween(1,getLocation());
 
   let myObjects = http.post(`${BASE_URL}/api/locacao/rent/${idClienteRandom}/${idVeiculoRandom}`, null, getAuthHeaders());
-  let myObjectsDevolucao = http.post(`${BASE_URL}/api/devolution/${idLocationRandom}`, null, getAuthHeaders());
+  let myObjectsDevolucao = http.post(`${BASE_URL}/api/locacao/devolution/${idLocationRandom}`, null, getAuthHeaders());
 
   const checkRes = check(myObjects, {
     'End-Point: /api/locacao/rent/ 200 or 404': (r) => r.status === 200 || r.status === 404
@@ -40,7 +40,11 @@ export default () => {
 };
 
 function getLocation(){
-  let locationsSize = [] ;
-  locationsSize = JSON.parse(http.get(`${BASE_URL}/api/locacao`, getAuthHeaders()).body);
+  let locationsObj = http.get(`${BASE_URL}/api/locacao`, getAuthHeaders());
+  if (locationsObj.status == '404'){
+    return 1;
+  }
+
+  let locationsSize = JSON.parse(locationsObj.body);
   return locationsSize.length;
 }

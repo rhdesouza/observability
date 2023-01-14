@@ -25,6 +25,7 @@ services:
       MYSQL_DATABASE: "observability"
     ports:
       - 3306:3306
+    restart: always
 
   prometheus:
     image: prom/prometheus:v2.38.0
@@ -89,6 +90,7 @@ services:
       - 9411:9411
     networks:
       - observability_network
+    restart: always
 
   k6:
     image: loadimpact/k6:latest
