@@ -48,16 +48,13 @@ public class ClienteServiceImp implements ClienteService {
     @Override
     public Cliente disableCliente(Long idCliente) {
         Optional<Cliente> cliente = findByIdCliente(idCliente);
-        if (cliente.isPresent()) {
-            logger.info("Method: disableCliente | disable cliente {}", cliente.get().getNome());
-            return desativaCliente(cliente.get());
-        }
-        throw new NotFoundException("Method: disableCliente | Cliente not found");
+        logger.info("Method: disableCliente | disable cliente {}", cliente.get().getNome());
+        return desativaCliente(cliente.get());
     }
 
     private Cliente desativaCliente(@NotNull Cliente cliente) {
         if (cliente.getStatusCliente() == StatusCliente.Inativo) {
-            throw new NotFoundException("Method: disableCliente | client already disabled");
+            throw new BusinessException("Method: disableCliente | client already disabled");
         } else {
             cliente.setStatusCliente(StatusCliente.Inativo);
             return clienteRepository.save(new ClienteEntity(cliente)).toDomain();
@@ -66,7 +63,7 @@ public class ClienteServiceImp implements ClienteService {
 
     @Override
     public Cliente save(@NotNull Cliente cliente) {
-        if (cliente.getStatusCliente() == StatusCliente.Inativo && cliente.getId() == null) {
+        if (cliente.getStatusCliente() == StatusCliente.Inativo) {
             logger.info("Method: save | {} cannot be saved, inactive status", cliente.getNome());
             throw new BusinessException("Cliente não pode ser cadastrado com o status Inativo");
         }
