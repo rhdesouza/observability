@@ -12,6 +12,6 @@ public interface VeiculoService {
 
     List<Veiculo> getAllVeiculo();
 
-    void setStatusVeiculo(Veiculo veiculo, StatusVeiculo statusVeiculo);
+    Veiculo setStatusVeiculo(Veiculo veiculo, StatusVeiculo statusVeiculo);
 
 }

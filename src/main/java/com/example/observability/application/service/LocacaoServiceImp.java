@@ -80,7 +80,7 @@ public class LocacaoServiceImp implements LocacaoService {
     private void isVeiculoAlugado(@NotNull Veiculo veiculo) {
         if (veiculo.getStatus() == StatusVeiculo.Alugado) {
             logger.info("Method: isVeiculoAlugado | vehicle {} is already in place", veiculo);
-            throw new BusinessException("Veículo ja foi aluago, espera até a devolução");
+            throw new BusinessException("Vehicle has already been rented, wait until it is returned");
         }
     }
 

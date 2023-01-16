@@ -32,7 +32,7 @@ public class VeiculoServiceImp implements VeiculoService {
             return Optional.of(veiculoEntity.get().toDomain());
         } else {
             logger.info("Method: findByIdVeiculo | retunr not found");
-            throw new NotFoundException("Method: findByIdVeiculo | retunr not found");
+            throw new NotFoundException("Method: findByIdVeiculo | retunr not found for id: " + idVeiculo);
         }
     }
 
@@ -47,8 +47,8 @@ public class VeiculoServiceImp implements VeiculoService {
     }
 
     @Override
-    public void setStatusVeiculo(@NotNull Veiculo veiculo, StatusVeiculo statusVeiculo) {
+    public Veiculo setStatusVeiculo(@NotNull Veiculo veiculo, StatusVeiculo statusVeiculo) {
         veiculo.setStatus(statusVeiculo);
-        veiculoRepository.save(new VeiculoEntity(veiculo));
+        return veiculoRepository.save(new VeiculoEntity(veiculo)).toDomain();
     }
 }
