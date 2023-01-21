@@ -33,9 +33,9 @@ public class MontadoraServiceImpTest {
         MontadoraEntity montadoraEntityMock = new EasyRandom().nextObject(MontadoraEntity.class);
         Mockito.when(montadoraRepository.findById(any(Long.class))).thenReturn(Optional.of(montadoraEntityMock));
 
-        Optional<Montadora> montadoraReturn = montadoraServiceImp.findByIdMontadora(any(Long.class));
+        Montadora montadoraReturn = montadoraServiceImp.findByIdMontadora(any(Long.class));
 
-        Assertions.assertEquals(montadoraReturn.get(), montadoraEntityMock.toDomain());
+        Assertions.assertEquals(montadoraReturn, montadoraEntityMock.toDomain());
     }
 
     @Test

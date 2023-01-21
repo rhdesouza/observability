@@ -1,15 +1,20 @@
 package com.example.observability.webapi.representation;
 
 import com.example.observability.domain.entities.Veiculo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
-public class VeiculoRepresentation {
+@JsonSerialize
+public class VeiculoRepresentation implements Serializable {
 
     private Integer id;
     private String categoria;
@@ -30,5 +35,4 @@ public class VeiculoRepresentation {
         this.valorFipe = veiculoDomain.getValorFipe();
         this.status = veiculoDomain.getStatus().name();
     }
-
 }

@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/montadora")
@@ -33,7 +31,7 @@ public class MontadoraController {
     private MontadoraServiceImp montadoraServiceImp;
 
 
-    @Operation(summary = "Retorna uma montadora.",description = "Retorna uma montadora por id")
+    @Operation(summary = "Retorna uma montadora.", description = "Retorna uma montadora por id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Retorna a montadora pesquisada.",
                     content = {@Content(mediaType = "application/json",
@@ -47,14 +45,11 @@ public class MontadoraController {
             @PathVariable(name = "idMontadora") Long idMontadora
     ) {
         logger.info("MontadoraController::getMontadora");
-        return Optional.ofNullable(montadoraServiceImp.findByIdMontadora(idMontadora))
-                .map(result -> new ResponseEntity<MontadoraRepresentation>(
-                        new MontadoraRepresentation(result.get()), HttpStatus.OK)
-                )
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        MontadoraRepresentation montadoraRepresentation = new MontadoraRepresentation(montadoraServiceImp.findByIdMontadora(idMontadora));
+        return ResponseEntity.ok(montadoraRepresentation);
     }
 
-    @Operation(summary = "Retorna uma lista de montadoras.",description = "Retorna uma lista de montadoras")
+    @Operation(summary = "Retorna uma lista de montadoras.", description = "Retorna uma lista de montadoras")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Retorna a lista de montadoras.",
                     content = {@Content(mediaType = "application/json",
@@ -66,10 +61,6 @@ public class MontadoraController {
     public ResponseEntity<List<MontadoraRepresentation>> getAllMontadora() {
         logger.info("MontadoraController::getAllMontadora");
         List<Montadora> montadoras = montadoraServiceImp.getAllMontadora();
-
-        if (montadoras.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
 
         return ResponseEntity.ok(
                 montadoras.stream().map(MontadoraRepresentation::new).toList()

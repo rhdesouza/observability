@@ -21,11 +21,11 @@ public class MontadoraServiceImp implements MontadoraService {
     MontadoraRepository montadoraRepository;
 
     @Override
-    public Optional<Montadora> findByIdMontadora(Long idMontadora) {
+    public Montadora findByIdMontadora(Long idMontadora) {
         Optional<MontadoraEntity> montadoraEntity = montadoraRepository.findById(idMontadora);
         if (montadoraEntity.isPresent()) {
             logger.info("Method: findByIdMontadora | retunr {}", montadoraEntity.get());
-            return Optional.of(montadoraEntity.get().toDomain());
+            return montadoraEntity.get().toDomain();
         } else {
             throw new NotFoundException("Method: findByIdMontadora | retunr not found");
         }

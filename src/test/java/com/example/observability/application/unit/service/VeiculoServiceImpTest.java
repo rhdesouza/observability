@@ -35,9 +35,9 @@ public class VeiculoServiceImpTest {
         VeiculoEntity veiculoEntityMock = new EasyRandom().nextObject(VeiculoEntity.class);
         Mockito.when(veiculoRepository.findById(any(Long.class))).thenReturn(Optional.of(veiculoEntityMock));
 
-        Optional<Veiculo> veiculoReturn = veiculoServiceImp.findByIdVeiculo(any(Long.class));
+        Veiculo veiculoReturn = veiculoServiceImp.findByIdVeiculo(any(Long.class));
 
-        Assertions.assertEquals(veiculoReturn.get(), veiculoEntityMock.toDomain());
+        Assertions.assertEquals(veiculoReturn, veiculoEntityMock.toDomain());
     }
 
     @Test

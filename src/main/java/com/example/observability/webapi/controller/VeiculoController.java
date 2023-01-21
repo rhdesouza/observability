@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/veiculo")
@@ -46,11 +45,8 @@ public class VeiculoController {
             @PathVariable(name = "idVeiculo") Long idVeiculo
     ) {
         logger.info("VeiculoController::getVeiculo");
-        return Optional.ofNullable(veiculoService.findByIdVeiculo(idVeiculo))
-                .map(result -> new ResponseEntity<VeiculoRepresentation>(
-                        new VeiculoRepresentation(result.get()), HttpStatus.OK)
-                )
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        VeiculoRepresentation veiculoRepresentation = new VeiculoRepresentation(veiculoService.findByIdVeiculo(idVeiculo));
+        return ResponseEntity.ok(veiculoRepresentation);
     }
 
     @Operation(summary = "Retorna uma lista de veiculos.", description = "Retorna uma lista de veiculos")
@@ -65,10 +61,6 @@ public class VeiculoController {
     public ResponseEntity<List<VeiculoRepresentation>> getAllVeiculo() {
         logger.info("VeiculoController::getAllVeiculo");
         List<Veiculo> veiculos = veiculoService.getAllVeiculo();
-
-        if (veiculos.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
 
         return ResponseEntity.ok(
                 veiculos.stream().map(VeiculoRepresentation::new).toList()

@@ -25,11 +25,11 @@ public class VeiculoServiceImp implements VeiculoService {
 
 
     @Override
-    public Optional<Veiculo> findByIdVeiculo(Long idVeiculo) {
+    public Veiculo findByIdVeiculo(Long idVeiculo) {
         Optional<VeiculoEntity> veiculoEntity = veiculoRepository.findById(idVeiculo);
         if (veiculoEntity.isPresent()) {
             logger.info("Method: findByIdVeiculo | retunr {}", veiculoEntity.get());
-            return Optional.of(veiculoEntity.get().toDomain());
+            return veiculoEntity.get().toDomain();
         } else {
             logger.info("Method: findByIdVeiculo | retunr not found");
             throw new NotFoundException("Method: findByIdVeiculo | retunr not found for id: " + idVeiculo);

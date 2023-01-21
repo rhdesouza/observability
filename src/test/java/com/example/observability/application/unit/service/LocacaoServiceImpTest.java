@@ -88,7 +88,7 @@ public class LocacaoServiceImpTest {
 
         Veiculo veiculoMock = new EasyRandom().nextObject(Veiculo.class);
         veiculoMock.setStatus(StatusVeiculo.Disponivel);
-        Mockito.when(veiculoService.findByIdVeiculo(any(Long.class))).thenReturn(Optional.of(veiculoMock));
+        Mockito.when(veiculoService.findByIdVeiculo(any(Long.class))).thenReturn(veiculoMock);
 
         LocacaoEntity locacaoEntityMock = new LocacaoEntity(new Locacao(veiculoMock, clienteMock));
         Locacao locacaoExpect = locacaoEntityMock.toDomain();
@@ -107,7 +107,7 @@ public class LocacaoServiceImpTest {
 
         Veiculo veiculoMock = new EasyRandom().nextObject(Veiculo.class);
         veiculoMock.setStatus(StatusVeiculo.Alugado);
-        Mockito.when(veiculoService.findByIdVeiculo(any(Long.class))).thenReturn(Optional.of(veiculoMock));
+        Mockito.when(veiculoService.findByIdVeiculo(any(Long.class))).thenReturn(veiculoMock);
 
 
         BusinessException exception = Assertions.assertThrows(BusinessException.class,
@@ -123,7 +123,7 @@ public class LocacaoServiceImpTest {
 
         Veiculo veiculoMock = new EasyRandom().nextObject(Veiculo.class);
         veiculoMock.setStatus(StatusVeiculo.Disponivel);
-        Mockito.when(veiculoService.findByIdVeiculo(any(Long.class))).thenReturn(Optional.of(veiculoMock));
+        Mockito.when(veiculoService.findByIdVeiculo(any(Long.class))).thenReturn(veiculoMock);
 
         Mockito.when(locacaoRepository.save(any(LocacaoEntity.class))).thenThrow(new NullPointerException("Error occurred"));
 
