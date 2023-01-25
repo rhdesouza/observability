@@ -38,8 +38,6 @@ public class CategoriaControllerIntegrationTest {
 
     List<CategoriaEntity> categoriaEntityListMock;
 
-    @Value("${userBucket.path}")
-
     @BeforeEach
     public void init() {
         categoriaEntityMock = new EasyRandom().nextObject(CategoriaEntity.class);

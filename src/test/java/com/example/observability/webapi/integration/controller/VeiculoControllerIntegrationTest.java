@@ -2,6 +2,7 @@ package com.example.observability.webapi.integration.controller;
 
 import com.example.observability.domain.entities.Veiculo;
 import com.example.observability.infrastructure.persistence.entity.VeiculoEntity;
+import com.example.observability.infrastructure.persistence.repository.ClienteRepository;
 import com.example.observability.infrastructure.persistence.repository.VeiculoRepository;
 import com.example.observability.webapi.representation.VeiculoRepresentation;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.hamcrest.Matchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,6 +41,8 @@ public class VeiculoControllerIntegrationTest {
     private VeiculoRepresentation veiculoRepresentationMock;
 
     private List<VeiculoRepresentation> veiculoRepresentationListMock;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     @BeforeEach
     public void init() {

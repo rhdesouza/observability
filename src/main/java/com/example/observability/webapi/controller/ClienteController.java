@@ -59,10 +59,6 @@ public class ClienteController {
         logger.info("ClienteController::getAllClientes");
         List<Cliente> clientes = clienteService.getAllClientes();
 
-        if (clientes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
         return ResponseEntity.ok(
                 clientes.stream().map(ClienteRepresentation::new).toList()
         );
@@ -95,7 +91,7 @@ public class ClienteController {
             @ApiResponse(responseCode = "404", description = "Cliente não localizado.", content = @Content)
     })
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ClienteRepresentation> save(
+    public ResponseEntity<ClienteRepresentation> saveCliente(
             @RequestBody final ClienteRepresentation clienteRepresentation
     ) {
         logger.info("ClienteController::save");

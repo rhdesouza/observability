@@ -12,13 +12,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/locacao")
@@ -43,11 +41,7 @@ public class LocacaoController {
             @PathVariable(name = "idLocacao") Long idLocacao
     ) {
         logger.info("LocacaoController::getLocacao");
-        return Optional.ofNullable(locacaoService.findByIdLocacao(idLocacao))
-                .map(result -> new ResponseEntity<LocacaoRepresentationSimple>(
-                        new LocacaoRepresentationSimple(result), HttpStatus.OK)
-                )
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(new LocacaoRepresentationSimple(locacaoService.findByIdLocacao(idLocacao)));
     }
 
     @Operation(summary = "Retorna uma lista de locações.", description = "Retorna uma lista de locações")
@@ -62,10 +56,6 @@ public class LocacaoController {
     public ResponseEntity<List<LocacaoRepresentationSimple>> getAllLocacoes() {
         logger.info("LocacaoController::getAllLocacoes");
         List<Locacao> locacoes = locacaoService.getAllLocacao();
-
-        if (locacoes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
 
         return ResponseEntity.ok(
                 locacoes.stream().map(LocacaoRepresentationSimple::new).toList()
@@ -88,11 +78,7 @@ public class LocacaoController {
             @PathVariable(name = "idVeiculo") Long idVeiculo
     ) {
         logger.info("LocacaoController::setLocacao");
-        return Optional.ofNullable(locacaoService.setLocacao(idCliente, idVeiculo))
-                .map(result -> new ResponseEntity<LocacaoRepresentationSimple>(
-                        new LocacaoRepresentationSimple(result), HttpStatus.OK)
-                )
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        return ResponseEntity.ok(new LocacaoRepresentationSimple(locacaoService.setLocacao(idCliente, idVeiculo)));
     }
 
     @Operation(summary = "Devolução de uma locação", description = "Devolve o veículo locado.")
