@@ -8,6 +8,7 @@ class ObservabilityApplicationTests {
 
 	@Test
 	void contextLoads() {
+		ObservabilityApplication.main(new String[] {});
 	}
 
 }
