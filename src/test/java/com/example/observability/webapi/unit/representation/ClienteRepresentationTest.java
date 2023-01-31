@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class ClienteRepresentationTest {
+class ClienteRepresentationTest {
 
     @Test
     void constructor() {
@@ -25,7 +25,7 @@ public class ClienteRepresentationTest {
     }
 
     @Test
-    void toDomain(){
+    void toDomain() {
         ClienteRepresentation clienteRepresentation = new EasyRandom().nextObject(ClienteRepresentation.class);
 
         Cliente clienteDomain = clienteRepresentation.toDomain();
@@ -38,7 +38,7 @@ public class ClienteRepresentationTest {
     }
 
     @Test
-    void toDomain_StatusNull(){
+    void toDomain_StatusNull() {
         ClienteRepresentation clienteRepresentation = new EasyRandom().nextObject(ClienteRepresentation.class);
         clienteRepresentation.setStatusCliente(null);
 

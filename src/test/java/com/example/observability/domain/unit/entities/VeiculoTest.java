@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class VeiculoTest {
+class VeiculoTest {
 
     @Test
     void constructVeiculoDomain() {
@@ -23,7 +23,7 @@ public class VeiculoTest {
                 .valorFipe(veiculoRandom.getValorFipe())
                 .status(veiculoRandom.getStatus())
                 .build(
-        );
+                );
 
         Assertions.assertEquals(veiculo, veiculoRandom);
         Assertions.assertEquals(veiculo.toString(), veiculoRandom.toString());

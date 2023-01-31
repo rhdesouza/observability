@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class StatusVeiculoTest {
+class StatusVeiculoTest {
 
     @Test
     void enumStatusVeiculoTest_Disponivel() {

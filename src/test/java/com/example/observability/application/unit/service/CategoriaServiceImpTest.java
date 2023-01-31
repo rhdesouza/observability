@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
-public class CategoriaServiceImpTest {
+class CategoriaServiceImpTest {
 
     @Autowired
     CategoriaServiceImp categoriaServiceImp;
@@ -51,7 +51,7 @@ public class CategoriaServiceImpTest {
     @Test
     void findAllCategoria_returnListCategories() {
         List<CategoriaEntity> listCategoriaEntityMock = new EasyRandom()
-                .objects(CategoriaEntity.class,5)
+                .objects(CategoriaEntity.class, 5)
                 .collect(Collectors.toList());
         Mockito.when(categoriaRepository.findAll()).thenReturn(listCategoriaEntityMock);
 
@@ -63,7 +63,6 @@ public class CategoriaServiceImpTest {
         Assertions.assertEquals(categoriaReturn.size(), 5);
         Assertions.assertEquals(categoriaReturn, expectReturn);
     }
-
 
 
 }

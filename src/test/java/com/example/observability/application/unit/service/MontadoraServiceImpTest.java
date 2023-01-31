@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
-public class MontadoraServiceImpTest {
+class MontadoraServiceImpTest {
 
     @Autowired
     MontadoraServiceImp montadoraServiceImp;

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
-public class VeiculoServiceImpTest {
+class VeiculoServiceImpTest {
 
     @Autowired
     VeiculoServiceImp veiculoServiceImp;

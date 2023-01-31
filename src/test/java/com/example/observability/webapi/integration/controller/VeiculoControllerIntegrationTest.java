@@ -29,14 +29,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class VeiculoControllerIntegrationTest {
+class VeiculoControllerIntegrationTest {
 
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    public VeiculoRepository veiculoRepository;
+    VeiculoRepository veiculoRepository;
 
     private VeiculoRepresentation veiculoRepresentationMock;
 
@@ -45,7 +45,7 @@ public class VeiculoControllerIntegrationTest {
     private ClienteRepository clienteRepository;
 
     @BeforeEach
-    public void init() {
+    void init() {
         VeiculoEntity veiculoEntityMock = new EasyRandom().nextObject(VeiculoEntity.class);
         Mockito.when(veiculoRepository.findById(1L)).thenReturn(Optional.of(veiculoEntityMock));
         veiculoRepresentationMock = new VeiculoRepresentation(veiculoEntityMock.toDomain());

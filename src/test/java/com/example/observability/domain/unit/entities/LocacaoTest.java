@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import static org.jeasy.random.FieldPredicates.named;
 
 @SpringBootTest
-public class LocacaoTest {
+class LocacaoTest {
 
     @Test
     void constructLocacaoDomain() {

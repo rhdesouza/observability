@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
-public class ClienteServiceImpTest {
+class ClienteServiceImpTest {
 
     @Autowired
     ClienteServiceImp clienteServiceImp;
@@ -62,12 +62,12 @@ public class ClienteServiceImpTest {
 
         List<Cliente> clientesReturn = clienteServiceImp.getAllClientes();
 
-        Assertions.assertEquals(10,clientesReturn.size());
+        Assertions.assertEquals(10, clientesReturn.size());
         Assertions.assertEquals(clientesReturn, clientesExpectReturn);
     }
 
     @Test
-    void disableCliente_sucess(){
+    void disableCliente_sucess() {
         ClienteEntity clienteMock = new EasyRandom().nextObject(ClienteEntity.class);
         clienteMock.setStatusCliente(StatusCliente.Ativo);
         Mockito.when(clienteRepository.findById(any(Long.class))).thenReturn(Optional.of(clienteMock));
@@ -79,7 +79,7 @@ public class ClienteServiceImpTest {
     }
 
     @Test
-    void disableCliente_notFoundException(){
+    void disableCliente_notFoundException() {
         Long idCliente = 15L;
         Mockito.when(clienteRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
@@ -90,7 +90,7 @@ public class ClienteServiceImpTest {
     }
 
     @Test
-    void disableCliente_businessException(){
+    void disableCliente_businessException() {
         Long idCliente = 15L;
         ClienteEntity clienteMock = new EasyRandom().nextObject(ClienteEntity.class);
         clienteMock.setStatusCliente(StatusCliente.Inativo);
@@ -104,7 +104,7 @@ public class ClienteServiceImpTest {
     }
 
     @Test
-    void save_successReturn(){
+    void save_successReturn() {
         Cliente clienteMock = new EasyRandom().nextObject(Cliente.class);
         clienteMock.setStatusCliente(com.example.observability.domain.entities.StatusCliente.Ativo);
 
@@ -113,11 +113,11 @@ public class ClienteServiceImpTest {
 
         Cliente clienteReturn = clienteServiceImp.save(clienteMock);
 
-        Assertions.assertEquals(clienteMock,clienteReturn);
+        Assertions.assertEquals(clienteMock, clienteReturn);
     }
 
     @Test
-    void save_BusinessException(){
+    void save_BusinessException() {
         Cliente clienteMock = new EasyRandom().nextObject(Cliente.class);
         clienteMock.setStatusCliente(com.example.observability.domain.entities.StatusCliente.Inativo);
         clienteMock.setId(null);
@@ -129,7 +129,7 @@ public class ClienteServiceImpTest {
     }
 
     @Test
-    void save_Exception(){
+    void save_Exception() {
         Cliente clienteMock = new EasyRandom().nextObject(Cliente.class);
         clienteMock.setStatusCliente(com.example.observability.domain.entities.StatusCliente.Ativo);
 

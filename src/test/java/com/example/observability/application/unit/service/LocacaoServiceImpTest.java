@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest
-public class LocacaoServiceImpTest {
+class LocacaoServiceImpTest {
 
     @Autowired
     LocacaoServiceImp locacaoServiceImp;
@@ -147,7 +147,7 @@ public class LocacaoServiceImpTest {
     }
 
     @Test
-    void setDevolucao_exception () {
+    void setDevolucao_exception() {
         LocacaoEntity locacaoEntityMock = new EasyRandom().nextObject(LocacaoEntity.class);
         Mockito.when(locacaoRepository.findById(any(Long.class))).thenReturn(Optional.of(locacaoEntityMock));
         Mockito.when(veiculoService.setStatusVeiculo(any(Veiculo.class), any(StatusVeiculo.class))).thenThrow(new NullPointerException("Error occurred"));

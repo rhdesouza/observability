@@ -27,21 +27,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MontadoraControllerIntegrationTest {
+class MontadoraControllerIntegrationTest {
 
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    public MontadoraRepository montadoraRepository;
+    MontadoraRepository montadoraRepository;
 
     private MontadoraRepresentation montadoraRepresentationMock;
 
     private List<MontadoraRepresentation> montadoraRepresentationListMock;
 
     @BeforeEach
-    public void init() {
+    void init() {
         MontadoraEntity montadoraEntityMock = new EasyRandom().nextObject(MontadoraEntity.class);
         Mockito.when(montadoraRepository.findById(1L)).thenReturn(Optional.of(montadoraEntityMock));
         montadoraRepresentationMock = new MontadoraRepresentation(montadoraEntityMock.toDomain());

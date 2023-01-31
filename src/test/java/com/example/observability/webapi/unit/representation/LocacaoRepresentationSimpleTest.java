@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-public class LocacaoRepresentationSimpleTest {
+class LocacaoRepresentationSimpleTest {
 
     @Test
-    void constructor(){
+    void constructor() {
         Locacao locacaoDomain = new EasyRandom().nextObject(Locacao.class);
 
         LocacaoRepresentationSimple locacaoRepresentationSimple = new LocacaoRepresentationSimple(locacaoDomain);

@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class CategoriaControllerIntegrationTest {
+class CategoriaControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -39,7 +39,7 @@ public class CategoriaControllerIntegrationTest {
     List<CategoriaEntity> categoriaEntityListMock;
 
     @BeforeEach
-    public void init() {
+    void init() {
         categoriaEntityMock = new EasyRandom().nextObject(CategoriaEntity.class);
         Mockito.when(categoriaRepository.findById(1L)).thenReturn(Optional.of(categoriaEntityMock));
 

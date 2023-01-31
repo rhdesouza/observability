@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class LocacaoControllerIntegrationTest {
+class LocacaoControllerIntegrationTest {
     private final String URL_CONTROLLER = "/api/locacao";
 
     @Autowired
@@ -55,7 +55,7 @@ public class LocacaoControllerIntegrationTest {
     private List<LocacaoRepresentationSimple> locacaoRepresentationSimplesListMock;
 
     @BeforeEach
-    public void init() {
+    void init() {
         LocacaoEntity locacaoEntityMock = new EasyRandom().nextObject(LocacaoEntity.class);
         Mockito.when(locacaoRepository.findById(1L)).thenReturn(Optional.of(locacaoEntityMock));
         locacaoRepresentationSimpleMock = new LocacaoRepresentationSimple(locacaoEntityMock.toDomain());
@@ -136,7 +136,6 @@ public class LocacaoControllerIntegrationTest {
         VeiculoEntity veiculoEntityMock = new EasyRandom().nextObject(VeiculoEntity.class);
         veiculoEntityMock.setStatus(StatusVeiculo.Disponivel);
         Mockito.when(veiculoRepository.save(any(VeiculoEntity.class))).thenReturn(veiculoEntityMock);
-
 
 
         mockMvc.perform(post(URL_CONTROLLER + "/devolution/1")

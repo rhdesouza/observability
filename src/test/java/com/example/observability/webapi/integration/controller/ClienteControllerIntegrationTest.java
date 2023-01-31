@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ClienteControllerIntegrationTest {
+class ClienteControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -49,7 +49,7 @@ public class ClienteControllerIntegrationTest {
     private List<ClienteRepresentation> clienteRepresentationListMock;
 
     @BeforeEach
-    public void init() {
+    void init() {
         clienteEntityMock = new EasyRandom().nextObject(ClienteEntity.class);
         clienteEntityMock.setStatusCliente(StatusCliente.Ativo);
         Mockito.when(clienteRepository.findById(1L)).thenReturn(Optional.of(clienteEntityMock));
