@@ -35,9 +35,9 @@ class ClienteServiceImpTest {
         ClienteEntity clienteEntityMock = new EasyRandom().nextObject(ClienteEntity.class);
         Mockito.when(clienteRepository.findById(any(Long.class))).thenReturn(Optional.of(clienteEntityMock));
 
-        Optional<Cliente> clienteReturn = clienteServiceImp.findByIdCliente(any(Long.class));
+        Cliente clienteReturn = clienteServiceImp.findByIdCliente(any(Long.class));
 
-        Assertions.assertEquals(clienteReturn.get(), clienteEntityMock.toDomain());
+        Assertions.assertEquals(clienteReturn, clienteEntityMock.toDomain());
     }
 
     @Test

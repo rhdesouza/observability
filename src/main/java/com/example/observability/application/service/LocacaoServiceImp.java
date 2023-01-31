@@ -61,7 +61,7 @@ public class LocacaoServiceImp implements LocacaoService {
 
     @Override
     public Locacao setLocacao(Long idCliente, Long idVeiculo) {
-        Cliente cliente = clienteService.findByIdCliente(idCliente).get();
+        Cliente cliente = clienteService.findByIdCliente(idCliente);
         Veiculo veiculo = veiculoService.findByIdVeiculo(idVeiculo);
         isVeiculoAlugado(veiculo);
 

@@ -84,7 +84,7 @@ class LocacaoServiceImpTest {
     @Test
     void setLocacao_success() {
         Cliente clienteMock = new EasyRandom().nextObject(Cliente.class);
-        Mockito.when(clienteService.findByIdCliente(any(Long.class))).thenReturn(Optional.of(clienteMock));
+        Mockito.when(clienteService.findByIdCliente(any(Long.class))).thenReturn(clienteMock);
 
         Veiculo veiculoMock = new EasyRandom().nextObject(Veiculo.class);
         veiculoMock.setStatus(StatusVeiculo.Disponivel);
@@ -103,7 +103,7 @@ class LocacaoServiceImpTest {
     @Test
     void setLocacao_businessException() {
         Cliente clienteMock = new EasyRandom().nextObject(Cliente.class);
-        Mockito.when(clienteService.findByIdCliente(any(Long.class))).thenReturn(Optional.of(clienteMock));
+        Mockito.when(clienteService.findByIdCliente(any(Long.class))).thenReturn(clienteMock);
 
         Veiculo veiculoMock = new EasyRandom().nextObject(Veiculo.class);
         veiculoMock.setStatus(StatusVeiculo.Alugado);
@@ -119,7 +119,7 @@ class LocacaoServiceImpTest {
     @Test
     void setLocacao_exception() {
         Cliente clienteMock = new EasyRandom().nextObject(Cliente.class);
-        Mockito.when(clienteService.findByIdCliente(any(Long.class))).thenReturn(Optional.of(clienteMock));
+        Mockito.when(clienteService.findByIdCliente(any(Long.class))).thenReturn(clienteMock);
 
         Veiculo veiculoMock = new EasyRandom().nextObject(Veiculo.class);
         veiculoMock.setStatus(StatusVeiculo.Disponivel);

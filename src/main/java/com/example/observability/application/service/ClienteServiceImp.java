@@ -25,11 +25,11 @@ public class ClienteServiceImp implements ClienteService {
     ClienteRepository clienteRepository;
 
     @Override
-    public Optional<Cliente> findByIdCliente(Long idCliente) {
+    public Cliente findByIdCliente(Long idCliente) {
         Optional<ClienteEntity> clienteEntity = clienteRepository.findById(idCliente);
         if (clienteEntity.isPresent()) {
             logger.info("Method: findByIdCliente | retunr {}", clienteEntity.get());
-            return Optional.of(clienteEntity.get().toDomain());
+            return clienteEntity.get().toDomain();
         } else {
             throw new NotFoundException("Method: findByIdCliente | retunr not found client id: " + idCliente);
         }
@@ -47,9 +47,9 @@ public class ClienteServiceImp implements ClienteService {
 
     @Override
     public Cliente disableCliente(Long idCliente) {
-        Optional<Cliente> cliente = findByIdCliente(idCliente);
-        logger.info("Method: disableCliente | disable cliente {}", cliente.get().getNome());
-        return desativaCliente(cliente.get());
+        Cliente cliente = findByIdCliente(idCliente);
+        logger.info("Method: disableCliente | disable cliente {}", cliente.getNome());
+        return desativaCliente(cliente);
     }
 
     private Cliente desativaCliente(@NotNull Cliente cliente) {
