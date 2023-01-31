@@ -45,6 +45,6 @@ public class Locacao {
                 .divide(new BigDecimal(mesAno), MathContext.DECIMAL32)
                 .divide(new BigDecimal(diasMes), MathContext.DECIMAL32);
 
-        return valorAluguelDiario.compareTo(this.veiculo.getCategoria().getValorDiariaMinima()) == 1 ?  valorAluguelDiario : this.veiculo.getCategoria().getValorDiariaMinima();
+        return valorAluguelDiario.compareTo(this.veiculo.getCategoria().getValorDiariaMinima()) > 0 ?  valorAluguelDiario : this.veiculo.getCategoria().getValorDiariaMinima();
     }
 }
