@@ -53,9 +53,15 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 <b>Gerar container spring:<b> 
 
-1 - ``mvn install -DskipTests ``
+1 - ``mvn install ``
 
-2 - ``docker build -t springio/gs-spring-boot-docker .``
+2 - ``docker build -t springio/gs-spring-boot-docker .`` (deprecated)
+
+OU
+
+    mvn spring-boot:build-image
+    docker tag observability-api:0.0.1-SNAPSHOT rhdesouza/observability-api:0.0.1-SNAPSHOT
+    docker push rhdesouza/observability-api:0.0.1-SNAPSHOT
 
 ----------------------------------
 

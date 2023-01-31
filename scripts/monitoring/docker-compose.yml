@@ -1,19 +1,19 @@
 version: '3.7'
 
 services:
-  #spring:
-  #  image: springio/gs-spring-boot-docker
-  #  container_name: api-observability
-  #  networks:
-  #    - observability_network
-  #  ports:
-  #    - "8080:8080"
-  #  volumes:
-  #    - ./logs:/var/log/
-  #  environment:
-  #    - datasource.url=mysql://mysql/observability?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=America/Sao_Paulo
-  #  depends_on:
-  #    - mysql
+  spring:
+    image: rhdesouza/observability-api:0.0.1-SNAPSHOT
+    container_name: api-observability
+    networks:
+      - observability_network
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./logs:/var/log/
+    environment:
+      - datasource.url=mysql://mysql/observability?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=America/Sao_Paulo
+    depends_on:
+      - mysql
 
   mysql:
     container_name: mysql_observability
