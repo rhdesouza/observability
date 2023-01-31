@@ -4,11 +4,14 @@ import com.example.observability.domain.entities.Cliente;
 import com.example.observability.domain.entities.Locacao;
 import com.example.observability.domain.entities.Veiculo;
 import org.jeasy.random.EasyRandom;
+import org.jeasy.random.EasyRandomParameters;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+
+import static org.jeasy.random.FieldPredicates.named;
 
 @SpringBootTest
 public class LocacaoTest {
@@ -37,10 +40,12 @@ public class LocacaoTest {
     void constructLocacaoDomain_Devolucao_AbaixoDoMinimo() {
         BigDecimal valorDiariaMinima = new BigDecimal(200);
 
-        Veiculo veiculoMock = new EasyRandom().nextObject(Veiculo.class);
-        veiculoMock.setAnoModelo(2022);
-        veiculoMock.setValorFipe(new BigDecimal(50000));
-        veiculoMock.getCategoria().setValorDiariaMinima(valorDiariaMinima);
+        Veiculo veiculoMock = new EasyRandom(
+                new EasyRandomParameters()
+                        .randomize(named("anoModelo"), () -> 2022)
+                        .randomize(named("valorFipe"), () -> new BigDecimal(50000))
+                        .randomize(named("valorDiariaMinima"), () -> valorDiariaMinima)
+        ).nextObject(Veiculo.class);
 
         Cliente clienteMock = new EasyRandom().nextObject(Cliente.class);
 
@@ -50,17 +55,18 @@ public class LocacaoTest {
         Assertions.assertEquals(locacao.getVeiculo(), veiculoMock);
         Assertions.assertEquals(locacao.getCliente(), clienteMock);
         Assertions.assertEquals(locacao.getValor(), valorDiariaMinima);
-
     }
 
     @Test
     void constructLocacaoDomain_Devolucao_AcimaDoMinimo() {
         BigDecimal valorDiariaMinima = new BigDecimal(100);
 
-        Veiculo veiculoMock = new EasyRandom().nextObject(Veiculo.class);
-        veiculoMock.setAnoModelo(2022);
-        veiculoMock.setValorFipe(new BigDecimal(50000));
-        veiculoMock.getCategoria().setValorDiariaMinima(valorDiariaMinima);
+        Veiculo veiculoMock = new EasyRandom(
+                new EasyRandomParameters()
+                        .randomize(named("anoModelo"), () -> 2022)
+                        .randomize(named("valorFipe"), () -> new BigDecimal(50000))
+                        .randomize(named("valorDiariaMinima"), () -> valorDiariaMinima)
+        ).nextObject(Veiculo.class);
 
         Cliente clienteMock = new EasyRandom().nextObject(Cliente.class);
 
@@ -70,7 +76,6 @@ public class LocacaoTest {
         Assertions.assertEquals(locacao.getVeiculo(), veiculoMock);
         Assertions.assertEquals(locacao.getCliente(), clienteMock);
         Assertions.assertTrue(locacao.getValor().compareTo(valorDiariaMinima) == 1);
-
     }
 
 }
