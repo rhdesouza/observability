@@ -4,25 +4,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.CONFLICT)
-public class BusinessException extends RuntimeException{
+public class BusinessException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 5515151541L;
 
-/*
-	public BusinessException() {
-		super();
-	}
-*/
+    public BusinessException() {
+        super();
+    }
 
-	public BusinessException(String exception) {
+    public BusinessException(String exception) {
         super(exception);
     }
 
-/*	public BusinessException(String message, Throwable cause) {
+    public BusinessException(String message, Throwable cause) {
         super(message, cause);
-    }*/
-
-/*    public BusinessException(Throwable cause) {
-        super(cause);
-    }*/
+    }
 }

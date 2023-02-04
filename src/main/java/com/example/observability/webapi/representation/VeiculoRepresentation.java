@@ -1,8 +1,6 @@
 package com.example.observability.webapi.representation;
 
 import com.example.observability.domain.entities.Veiculo;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -40,8 +40,8 @@ public class VeiculoServiceImp implements VeiculoService {
     public List<Veiculo> getAllVeiculo() {
         List<VeiculoEntity> veiculoEntities = veiculoRepository.findAll();
         List<Veiculo> veiculos = veiculoEntities.stream()
-                .map(montadoraEntity -> montadoraEntity.toDomain()
-                ).toList();
+                .map(VeiculoEntity::toDomain)
+                .toList();
         logger.info("Method: getAllVeiculo | find to {} veiculos", veiculos.size());
         return veiculos;
     }
