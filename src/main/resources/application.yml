@@ -4,10 +4,13 @@ spring:
   datasource:
     #diver-class-name: com.mysql.cj.jdbc.Driver
     diver-class-name: io.opentracing.contrib.jdbc.TracingDriver
-    url: jdbc:${datasource.url:mysql://localhost/observability?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=America/Sao_Paulo}
+    url: jdbc:${datasource.url:mysql://localhost/observability?useUnicode=yes&characterEncoding=UTF-8&useTimezone=true&serverTimezone=America/Sao_Paulo&queryInterceptors=brave.mysql8.TracingQueryInterceptor}
     username: root
     password: root
     sqlScriptEncoding: UTF-8
+  zipkin:
+    enabled: true
+    base-url: http://localhost:9411/
 
 logging:
   file:
